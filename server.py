@@ -12,13 +12,11 @@ def root():
 
 @app.route('/<string:page_name>')
 def return_page(page_name):
-    return render_template(page_name)
-
-@app.route('/thankyou.html')
-def thank_you_page():
-    email = request.args.get('email')
-    print(email)
-    return render_template('/thankyou.html', email=email)
+    if page_name == 'thankyou.html':
+        email = request.args.get('email')
+        return render_template('/thankyou.html', email=email)
+    else:
+        return render_template(page_name)
 
 @app.route('/favicon.ico')
 def favicon():
