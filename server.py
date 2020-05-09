@@ -29,7 +29,7 @@ def submit_form():
         data = request.form.to_dict()
         email = data['email']
         write_to_csv(data)
-        return render_template('/thankyou.html?email=<email>)
+        return render_template('/thankyou.html?email=<email>')
     else:
         return render_template('index.html')
 
