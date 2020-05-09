@@ -18,7 +18,6 @@ def return_page(page_name):
 def return_page(email):
     return render_template('/thankyou.html?email=<email>')
 
-
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(path.join(app.root_path, 'static'),
