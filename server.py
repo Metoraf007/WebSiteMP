@@ -14,9 +14,11 @@ def root():
 def return_page(page_name):
     return render_template(page_name)
 
-@app.route('/thankyou.html?email=<email>')
-def return_page(email):
-    return render_template('/thankyou.html?email=<email>')
+@app.route('/thankyou.html')
+def thank_you_page():
+    email = request.args.get('email')
+    print(email)
+    return render_template('/thankyou.html', email=email)
 
 @app.route('/favicon.ico')
 def favicon():
@@ -27,9 +29,9 @@ def favicon():
 def submit_form():
     if request.method == 'POST':
         data = request.form.to_dict()
-        email = data['email']
         write_to_csv(data)
-        return render_template('/thankyou.html?email=<email>')
+        redirect_page = '/thankyou.html?email='+ data['email']
+        return redirect(redirect_page)
     else:
         return render_template('index.html')
 
