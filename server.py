@@ -1,5 +1,6 @@
 from flask import Flask, escape, request, render_template, send_from_directory, redirect
 from os import path
+import csv
 import json
 from urllib.request import urlopen
 
@@ -23,6 +24,15 @@ def submit_form():
     if request.method == 'POST':
         data = request.form.to_dict()
         email = data['email']
+        write_to_csv(data)
         return redirect('/thankyou.html', <string:email>)
     else:
         return render_template('index.html')
+
+def write_to_csv(data):
+    with open('database.csv', mode='a', newline='') as database:
+        email = data['email']
+        subject = data['subject']
+        message = data['message']
+        csv_writer = csv.writer(database, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        csv_writer.writerow([email, subject, message])
