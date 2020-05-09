@@ -14,18 +14,23 @@ def root():
 def return_page(page_name):
     return render_template(page_name)
 
+@app.route('/thankyou.html?email=<email>')
+def return_page(email):
+    return render_template('/thankyou.html?email=<email>')
+
+
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(path.join(app.root_path, 'static'),
                                'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
-@app.route('/submit_form', methods=['POST'])
+@app.route('/submit_form', methods=['POST','GET'])
 def submit_form():
     if request.method == 'POST':
         data = request.form.to_dict()
         email = data['email']
         write_to_csv(data)
-        return redirect('/thankyou.html', <string:email>)
+        return render_template('/thankyou.html?email=<email>)
     else:
         return render_template('index.html')
 
