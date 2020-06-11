@@ -38,12 +38,17 @@ def upload_file():
             flash('No selected file')
             return redirect(request.url)
         if file and allowed_file(file.filename):
+            # add the date and time to the file name
             timestr = time.strftime("%Y%m%d-%H%M%S")
             filename = secure_filename(timestr + "_" + file.filename)
             
+            # create the upload folder if it does not exists
             Path(app.config['UPLOAD_FOLDER']).mkdir(parents=True, exist_ok=True)
+
+            # save the file to disk and redirect user to thank you page
             file.save(path.join(app.config['UPLOAD_FOLDER'], filename))
             return render_template('/thankyou.html')
+    # if user uses GET method, send him to the upload page
     return render_template('/upload.html')
     
 @app.route('/<string:page_name>')
