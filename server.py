@@ -8,7 +8,7 @@ import json
 import time
 
 
-UPLOAD_FOLDER = 'home//site//wwwroot//uploads'
+UPLOAD_FOLDER = '/home/site/wwwroot/uploads'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 app = Flask(__name__)
