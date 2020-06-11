@@ -5,7 +5,7 @@ import json
 from urllib.request import urlopen
 from werkzeug.utils import secure_filename
 
-UPLOAD_FOLDER = 'C:\\Users\\Rotems\\Desktop\\Github\\WebSiteMP\\uploads'
+UPLOAD_FOLDER = '\\uploads'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 app = Flask(__name__)
