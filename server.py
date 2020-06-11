@@ -1,11 +1,14 @@
 from flask import Flask, flash, escape, request, render_template, send_from_directory, redirect, url_for
 from os import path
-import csv
-import json
+from pathlib import Path
 from urllib.request import urlopen
 from werkzeug.utils import secure_filename
+import csv
+import json
+import time
 
-UPLOAD_FOLDER = '//home//site//wwwroot//uploads'
+
+UPLOAD_FOLDER = 'home//site//wwwroot//uploads'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 app = Flask(__name__)
@@ -35,7 +38,10 @@ def upload_file():
             flash('No selected file')
             return redirect(request.url)
         if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
+            timestr = time.strftime("%Y%m%d-%H%M%S")
+            filename = secure_filename(timestr + "_" + file.filename)
+            
+            Path(app.config['UPLOAD_FOLDER']).mkdir(parents=True, exist_ok=True)
             file.save(path.join(app.config['UPLOAD_FOLDER'], filename))
             return render_template('/thankyou.html')
     return render_template('/upload.html')
